@@ -1,0 +1,244 @@
+<div class="container">
+    <p class="info">Заполнение всей анкеты займет не более 10 минут.</p>
+    <h2 class="screen-title">Паспортные данные</h2>
+    <form
+        class="passport"
+        id="passport"
+        [formGroup]="passportForm"
+        (ngSubmit)="onPassportFormSubmit()"
+    >
+        <ul class="fields">
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="issueDate"
+                    fieldId="issue-date"
+                    fieldName="Дата выдачи"
+                    [textMask]="{ mask: masks.date, guide: false }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Дата выдачи'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="issuingAuthorityCode"
+                    fieldId="issuing-authority-code"
+                    fieldName="Код подразделения"
+                    [textMask]="{ mask: masks.code, guide: false }"
+                    (input)="onCodeChanged($event)">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Код подразделения'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field">
+                <app-textarea
+                    [fieldControl]="issuingAuthority"
+                    fieldId="issuing-authority"
+                    fieldName="Кем выдан"
+                    [textMask]="{ mask: masks.passportIssuer, guide: false }">
+                </app-textarea>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Кем выдан'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field">
+                <app-input
+                    [fieldControl]="birthplace"
+                    fieldId="birthplace"
+                    fieldName="Место рождения"
+                    [textMask]="{ mask: masks.birthPlace, guide: false }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Место рождения'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+        </ul>
+
+        <h3 class="screen-title">Адрес регистрации</h3>
+        <ul class="fields">
+            <li class="field">
+                <app-textarea
+                    [fieldControl]="regAddress"
+                    fieldId="reg-address"
+                    fieldName="Адрес"
+                    (input)="onAddressRegChanged($event)">
+                </app-textarea>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Адрес'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="regApartment"
+                    fieldId="reg-apartment"
+                    fieldName="Номер квартиры"
+                    [textMask] ="{ mask: masks.appartment, guide: false }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Номер квартиры'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-checkbox
+                    [fieldControl]="isNoRegApartment"
+                    fieldId="is-no-reg-apartment"
+                    fieldName="Нет номера квартиры">
+                </app-checkbox>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="regPhone"
+                    fieldId="reg-phone"
+                    fieldName="Домашний телефон"
+                    fieldType="tel"
+                    [textMask]="{ mask: masks.phone }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Домашний телефон'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-checkbox
+                    [fieldControl]="isNoRegPhone"
+                    fieldId="is-no-reg-phone"
+                    fieldName="Нет домашнего телефона">
+                </app-checkbox>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="regDate"
+                    fieldId="reg-date"
+                    fieldName="Дата регистрации"
+                    fieldType="tel"
+                    [textMask]="{ mask: masks.date }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Дата регистрации'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+        </ul>
+
+        <h3 class="screen-title">Адрес проживания</h3>
+
+        <div class="equal-address">
+            <app-checkbox
+                [fieldControl]="isAddressEqual"
+                fieldId="is-address-equal"
+                fieldName="Совпадает с адресом регистрации"
+                (input)="onSameAddressChanged($event)">
+            </app-checkbox>
+        </div>
+
+        <ul class="fields" [style.display]="isAddressEqual.value ? 'none' : null">
+            <li class="field">
+                <app-textarea
+                    [fieldControl]="liveAddress"
+                    fieldId="live-address"
+                    fieldName="Адрес"
+                    (input)="onAddressLivingChanged($event)">
+                </app-textarea>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Адрес проживания'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="liveApartment"
+                    fieldId="live-apartment"
+                    fieldName="Номер квартиры"
+                    [textMask] ="{ mask: masks.appartment, guide: false }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Номер квартиры проживания'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-checkbox
+                    [fieldControl]="isNoLiveApartment"
+                    fieldId="is-no-live-apartment"
+                    fieldName="Нет номера квартиры">
+                </app-checkbox>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="livePhone"
+                    fieldId="live-phone"
+                    fieldName="Домашний телефон"
+                    fieldType="tel"
+                    [textMask]="{ mask: masks.phone }"
+                    [attr.disabled]="isNoLivePhone.value ? 'disabled' : null">>
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Домашний телефон проживания'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+            <li class="field field--half">
+                <app-checkbox
+                    [fieldControl]="isNoLivePhone"
+                    fieldId="is-no-live-phone"
+                    fieldName="Нет домашнего телефона">
+                </app-checkbox>
+            </li>
+            <li class="field field--half">
+                <app-input
+                    [fieldControl]="liveDate"
+                    fieldId="live-date"
+                    fieldName="Дата начала проживания"
+                    fieldType="tel"
+                    [textMask]="{ mask: masks.date }">
+                </app-input>
+                <div class="hint">
+                    <app-tooltip
+                        [field]="'Дата начала проживания'"
+                        hintPosition="top-right">
+                    </app-tooltip>
+                </div>
+            </li>
+        </ul>
+
+        <p class="submit">
+            <app-button 
+                buttonType="submit"
+                [isDisabled]="updateInProgress$ | async">
+                Продолжить
+            </app-button>
+        </p>
+    </form>
+</div>
+<app-footer>
+    <app-personal-data-agreement></app-personal-data-agreement>
+</app-footer>
